@@ -1,7 +1,0 @@
-name: "psu_component_name"
-description: "My custom PSU ESPHome component"
-files:
-  - custom_component_name.h
-  - custom_component_name.cpp
-  - __init__.py
-dependencies: []
