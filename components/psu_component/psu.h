@@ -31,6 +31,8 @@ float f2c(uint16_t temp) {
   return (temp- 32) *.5556;
 }
 
+namespace esphome {
+namespace PSUSensor {
 class PSUSensor : public PollingComponent, uart::UARTDevice {
  public:
   PSU_DPS myself;
@@ -84,3 +86,5 @@ class PSUSensor : public PollingComponent, uart::UARTDevice {
 	}
   };
 };
+} // namespace solis_s5
+} // namespace PSUSensor
