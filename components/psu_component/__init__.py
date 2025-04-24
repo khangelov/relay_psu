@@ -12,9 +12,11 @@ CONF_WATT_OUT = "watt_out"
 CONF_INTERNAL_TEMP = "internal_temp"
 CONF_FAN_RPM = "fan_rpm"
 
+# Define the namespace and component class
 psu_sensor_ns = cg.esphome_ns.namespace("psu_sensor")
 PSUSensorComponent = psu_sensor_ns.class_("PSUSensorComponent", cg.PollingComponent)
 
+# Configuration schema for the component
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.declare_id(PSUSensorComponent),
@@ -27,13 +29,15 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_INTERNAL_TEMP): sensor.sensor_schema(unit_of_measurement="°C", accuracy_decimals=2),
         cv.Optional(CONF_FAN_RPM): sensor.sensor_schema(unit_of_measurement="RPM", accuracy_decimals=0),
     }
-).extend(cv.polling_component_schema("60s"))
+).extend(cv.polling_component_schema("60s"))  # Update every 60 seconds
 
 async def to_code(config):
+    # Create a new instance of PSUSensorComponent
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await cg.register_polling_component(var, config)
 
+    # Register each sensor
     for key, attr in [
         (CONF_VOLT_IN, "volt_in_sensor"),
         (CONF_AMP_IN, "amp_in_sensor"),
@@ -47,3 +51,6 @@ async def to_code(config):
         if key in config:
             sens = await sensor.new_sensor(config[key])
             cg.add(getattr(var, f"set_{attr}")(sens))
+
+    # Add I2C dependency (Wire library)
+    cg.add_library("Wire", None)
