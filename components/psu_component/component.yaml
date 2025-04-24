@@ -1,4 +1,4 @@
-name: "psu_component_name"
+name: "PSUSensor"
 description: "My custom PSU HP ESPHome component"
 files:
   - psu.h
