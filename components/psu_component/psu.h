@@ -1,5 +1,6 @@
 #include "esphome.h"
 #include "psu_class.h"
+#include "esphome/core/component.h"
 //#include <Wire.h>
 #define LOOP_DELAY 2000
 
