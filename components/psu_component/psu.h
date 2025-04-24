@@ -31,7 +31,7 @@ float f2c(uint16_t temp) {
   return (temp- 32) *.5556;
 }
 
-class PSUSensor : public PollingComponent, public Sensor {
+class PSUSensor : public PollingComponent, uart::UARTDevice {
  public:
   PSU_DPS myself;
   Sensor *volt_in = new Sensor();
