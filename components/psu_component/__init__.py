@@ -1,6 +1,7 @@
 from esphome.components import sensor
 import esphome.config_validation as cv
 import esphome.codegen as cg
+from esphome.const import CONF_ID
 
 CONF_VOLT_IN = "volt_in"
 CONF_AMP_IN = "amp_in"
@@ -12,7 +13,7 @@ CONF_INTERNAL_TEMP = "internal_temp"
 CONF_FAN_RPM = "fan_rpm"
 
 psu_sensor_ns = cg.esphome_ns.namespace("psu_sensor")
-PSUSensorComponent = psu_sensor_ns.class_("PSUSensorComponent", cg.Component)
+PSUSensorComponent = psu_sensor_ns.class_("PSUSensorComponent", cg.PollingComponent)
 
 CONFIG_SCHEMA = cv.Schema(
     {
@@ -26,11 +27,12 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_INTERNAL_TEMP): sensor.sensor_schema(unit_of_measurement="°C", accuracy_decimals=2),
         cv.Optional(CONF_FAN_RPM): sensor.sensor_schema(unit_of_measurement="RPM", accuracy_decimals=0),
     }
-)
+).extend(cv.polling_component_schema("60s"))
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[cv.GenerateID()])
+    var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
+    await cg.register_polling_component(var, config)
 
     for key, attr in [
         (CONF_VOLT_IN, "volt_in_sensor"),
