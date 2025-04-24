@@ -13,8 +13,8 @@ CONF_INTERNAL_TEMP = "internal_temp"
 CONF_FAN_RPM = "fan_rpm"
 
 # Define the namespace and component class
-psu_sensor_ns = cg.esphome_ns.namespace("psu_sensor")
-PSUSensorComponent = psu_sensor_ns.class_("PSUSensorComponent", cg.PollingComponent)
+psu_sensor_ns = cg.esphome_ns.namespace("PSUSensor")
+PSUSensorComponent = psu_sensor_ns.class_("PSUSensor", cg.PollingComponent)
 
 # Configuration schema for the component
 CONFIG_SCHEMA = cv.Schema(
