@@ -1,6 +1,5 @@
 #include "esphome.h"
 #include "psu_class.h"
-#include "esphome/core/component.h"
 //#include <Wire.h>
 #define LOOP_DELAY 2000
 
@@ -32,9 +31,7 @@ float f2c(uint16_t temp) {
   return (temp- 32) *.5556;
 }
 
-namespace esphome {
-namespace PSUSensor {
-class PSUSensor : public PollingComponent, uart::UARTDevice {
+class PSUSensor : public PollingComponent, public Sensor {
  public:
   PSU_DPS myself;
   Sensor *volt_in = new Sensor();
@@ -87,5 +84,3 @@ class PSUSensor : public PollingComponent, uart::UARTDevice {
 	}
   };
 };
-} // namespace solis_s5
-} // namespace PSUSensor
