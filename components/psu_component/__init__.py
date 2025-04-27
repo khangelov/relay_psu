@@ -1,3 +1,4 @@
+from esphome.components import polling_component
 from esphome.components import sensor
 import esphome.config_validation as cv
 import esphome.codegen as cg
@@ -35,7 +36,7 @@ async def to_code(config):
     # Create a new instance of PSUSensorComponent
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-    await cg.register_polling_component(var, config)
+    await polling_component.register_polling_component(var, config)
 
     # Register each sensor
     for key, attr in [
