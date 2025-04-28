@@ -8,7 +8,6 @@ from esphome.const import (
     UNIT_AMPERE,
     UNIT_WATT,
     UNIT_CELSIUS,
-    UNIT_RPM,
 )
 
 DEPENDENCIES = ["i2c"]
@@ -27,7 +26,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional("amp_out"): sensor.sensor_schema(UNIT_AMPERE, accuracy_decimals=2),
         cv.Optional("watt_out"): sensor.sensor_schema(UNIT_WATT, accuracy_decimals=2),
         cv.Optional("internal_temp"): sensor.sensor_schema(UNIT_CELSIUS, accuracy_decimals=1),
-        cv.Optional("fan_rpm"): sensor.sensor_schema(UNIT_RPM, accuracy_decimals=0),
+        cv.Optional("fan_rpm"): sensor.sensor_schema(unit_of_measurement="RPM", accuracy_decimals=0),
     }
 ).extend(cv.polling_component_schema("15s"))
 
