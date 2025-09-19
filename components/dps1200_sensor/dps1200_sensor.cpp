@@ -23,7 +23,7 @@ void DPS1200Sensor::update() {
     Wire.write(reg[i]);
     Wire.write(regCS);
     Wire.endTransmission();
-    vTaskDelay(pdMS_TO_TICKS(100)); // Delay for 1 millisecond
+    esphome::delay(100); // Delay for 1 millisecond
 
     Wire.requestFrom((int)address_, 3);
     msg[0] = Wire.read();
@@ -68,5 +68,6 @@ void DPS1200Sensor::update() {
 }  // namespace dps1200_sensor
 
 }  // namespace esphome
+
 
 
